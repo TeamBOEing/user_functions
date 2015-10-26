@@ -21,8 +21,8 @@
 #include "Arduino.h"
 
 // Pins
-#define MOTOR_LEFT 5              // 
-#define MOTOR_RIGHT 6             // 
+#define MOTOR_LEFT 5              // Left motor control pin
+#define MOTOR_RIGHT 6             // Right motor control pin
 #define LED_PIN_GREEN 7           // Correlated with feedback of left side of board
 #define LED_PIN_RED 8             // Correlated with feedback of right side of board
 #define SPEAKER_PIN 9             // Pin speaker is attached to
