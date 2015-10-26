@@ -2,11 +2,12 @@
  * BOEbot.cpp
  * Author: Corbin Murrow, Cody Crossley
  * Date: 26 October 2015
- * Version: 1.3
+ * Version: 1.4
  *
  * This file contains the library code for BOEbot funcitonality.
  *
  * ======= VERSION HISTORY =======
+ * Version 1.4: Fixed some =/== errors in motors, added max speed var - CC - 26 October 2015
  * Version 1.3: Merged versions 1.1 and 1.2 together - CM - 26 October 2015
  * Version 1.2: Added IR, LED, and playSound functions - CC - 21 October 2015
  * Version 1.1: Added motor and LDR functions - CM - 21 October 2015
@@ -38,14 +39,14 @@ void initialize()
 
 void rightMotor(int speed)
 {
-  if (speed > 100)
+  if (speed > MAX_SPEED_VAL)
   {
     Serial.println("Right motor speed above allowable forward threshold. Adjusting to max forward speed.");
-    speed == 100;
-  } else if (speed < -100)
+    speed = MAX_SPEED_VAL;
+  } else if (speed < -MAX_SPEED_VAL)
   {
     Serial.println("Right motor speed above allowable backward threshold. Adjusting to max backward speed.");
-    speed == -100;
+    speed = -MAX_SPEED_VAL;
   }
 
   if (speed == 0)
@@ -63,14 +64,14 @@ void rightMotor(int speed)
 
 void leftMotor(int speed)
 {
-  if (speed > 100)
+  if (speed > MAX_SPEED_VAL)
   {
     Serial.println("Left motor speed above allowable forward threshold. Adjusting to max forward speed.");
-    speed == 100;
-  } else if (speed < -100)
+    speed = MAX_SPEED_VAL;
+  } else if (speed < -MAX_SPEED_VAL)
   {
     Serial.println("Left motor speed above allowable backward threshold. Adjusting to max backward speed.");
-    speed == -100;
+    speed = -MAX_SPEED_VAL;
   }
 
   if (speed == 0)
