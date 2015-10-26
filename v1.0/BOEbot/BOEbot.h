@@ -13,11 +13,9 @@
  * Version 1.0: Created header - CC - 21 October 2015
  */
 
-#ifndef library_h
-#define library_h
+#ifndef BOEbot_h
+#define BOEbot_h
 
-// Need a full path
-// http://stackoverflow.com/questions/6504211/is-it-possible-to-include-a-library-from-another-library-using-the-arduino-ide
 #include "Arduino.h"
 
 // Pins
