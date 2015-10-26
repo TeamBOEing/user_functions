@@ -17,7 +17,7 @@
 
 // Need a full path
 // http://stackoverflow.com/questions/6504211/is-it-possible-to-include-a-library-from-another-library-using-the-arduino-ide
-//#include <Servo.h>
+#include <Servo.h>
 #include "Arduino.h"
 
 // Pins
@@ -31,6 +31,8 @@
 #define IR_PIN_RIGHT_RECEIVE 16   // IR receiver on right side of BOEbot
 #define LDR_LEFT A4               // Photoresistor on left side of board
 #define LDR_RIGHT A2              // Photoresistor on right side of board
+Servo leftServo;
+Servo rightServo;
 
 // Constants
 #define BAUD_RATE 115200          // Speed which Serial monitor transmits
@@ -43,6 +45,11 @@ void setGreenLed(int);            // Turns green LED to passed in on/off (int st
 void playSound(int, int);         // Wrapper for tone function (int freq, int duration)
 int getLeftIr();                  // Returns value of left LDR
 int getRightIr();                 // Returns value of right LDR
+void setStopValue(int stop);
+void rightMotor(int speed);
+void leftMotor(int speed);
+int getLeftLight();
+int getRightLight();
 
 #endif
 
