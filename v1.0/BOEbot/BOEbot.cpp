@@ -36,6 +36,67 @@ void initialize()
   pinMode(IR_LEFT_RX, INPUT);
 }
 
+void rightMotor(int speed)
+{
+  if (speed > 100)
+  {
+    Serial.println("Right motor speed above allowable forward threshold. Adjusting to max forward speed.");
+    speed == 100;
+  } else if (speed < -100)
+  {
+    Serial.println("Right motor speed above allowable backward threshold. Adjusting to max backward speed.");
+    speed == -100;
+  }
+
+  if (speed == 0)
+  {
+    if (rightServo.attached())
+      rightServo.detach();
+  } else
+  {
+    if (!rightServo.attached())
+      rightServo.attach(MOTOR_RIGHT);
+
+    rightServo.writeMicroseconds(MOTOR_STOP_VALUE - speed);
+  }
+}
+
+void leftMotor(int speed)
+{
+  if (speed > 100)
+  {
+    Serial.println("Left motor speed above allowable forward threshold. Adjusting to max forward speed.");
+    speed == 100;
+  } else if (speed < -100)
+  {
+    Serial.println("Left motor speed above allowable backward threshold. Adjusting to max backward speed.");
+    speed == -100;
+  }
+
+  if (speed == 0)
+  {
+    if (leftServo.attached())
+      leftServo.detach();
+  } else
+  {
+    if (!leftServo.attached())
+      leftServo.attach(MOTOR_LEFT);
+
+    leftServo.writeMicroseconds(MOTOR_STOP_VALUE + speed);
+  }
+}
+
+int getLeftLight()
+{
+  return analogRead(LDR_LEFT);
+}
+
+int getRightLight()
+{
+  return analogRead(LDR_RIGHT);
+}
+
+// Turns red LED to passed in on/off
 void setRedLED(int state) {
   if (state)
     digitalWrite(LED_PIN_RED, HIGH);
@@ -64,66 +125,4 @@ int getLeftIR() {
 // Returns value of right LDR
 int getRightIR() {
   return digitalRead(LDR_RIGHT);
-}
-
-
-
-void leftMotor(int speed)
-{
-  if (speed > 100)
-  {
-    Serial.println("Left motor speed above allowable forward threshold. Adjusting to max forward speed.");
-    speed == 100;
-  } else if (speed < -100)
-  {
-    Serial.println("Left motor speed above allowable backward threshold. Adjusting to max backward speed.");
-    speed == -100;
-  }
-
-  if (speed == 0)
-  {
-    if (leftServo.attached())
-      leftServo.detach();
-  } else
-  {
-    if (!leftServo.attached())
-      leftServo.attach(MOTOR_LEFT);
-
-    leftServo.writeMicroseconds(MOTOR_STOP_VALUE + speed);
-  }
-}
-
-void rightMotor(int speed)
-{
-  if (speed > 100)
-  {
-    Serial.println("Right motor speed above allowable forward threshold. Adjusting to max forward speed.");
-    speed == 100;
-  } else if (speed < -100)
-  {
-    Serial.println("Right motor speed above allowable backward threshold. Adjusting to max backward speed.");
-    speed == -100;
-  }
-
-  if (speed == 0)
-  {
-    if (rightServo.attached())
-      rightServo.detach();
-  } else
-  {
-    if (!rightServo.attached())
-      rightServo.attach(MOTOR_RIGHT);
-
-    rightServo.writeMicroseconds(MOTOR_STOP_VALUE - speed);
-  }
-}
-
-int getLeftLight()
-{
-  return analogRead(LDR_LEFT);
-}
-
-int getRightLight()
-{
-  return analogRead(LDR_RIGHT);
 }

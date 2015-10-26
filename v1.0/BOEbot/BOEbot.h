@@ -31,20 +31,20 @@
 #define LDR_RIGHT A2              // Photoresistor on right side of board
 
 // Constants
-#define BAUD 115200          // Speed which Serial monitor transmits
+#define BAUD 115200               // Speed which Serial monitor transmits
 #define IR_SEND_FREQ 38500        // Hz signal of IR LEDs
 #define MOTOR_STOP_VALUE 1500     // The nominal stop value
 
 // User function prototypes
-void initialize();
+void initialize();                // Sets up pin directions
+void rightMotor(int);             // Turns right motor a specific speed (int speed)
+void leftMotor(int);              // Turns right motor a specific speed (int speed)
+int getLeftLight();               // Wrapper for analogRead of light value
+int getRightLight();              // Wrapper for analogRead of light value
 void setRedLED(int);              // Turns red LED to passed in on/off (int state)
 void setGreenLED(int);            // Turns green LED to passed in on/off (int state)
 void playSound(int, int);         // Wrapper for tone function (int freq, int duration)
 int getLeftIR();                  // Returns value of left LDR
 int getRightIR();                 // Returns value of right LDR
-void rightMotor(int speed);
-void leftMotor(int speed);
-int getLeftLight();
-int getRightLight();
 
 #endif
