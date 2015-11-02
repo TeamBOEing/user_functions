@@ -40,7 +40,7 @@ void initialize()
 }
 
 // Turns left motor forward a specific speed (int speed)
-void turnLeftMotorForward(int speed)
+void turnLeftMotorForward(unsigned int speed)
 {
   if (speed > MAX_SPEED)
   {
@@ -59,7 +59,7 @@ void turnLeftMotorForward(int speed)
 }
 
 // Turns left motor backward a specific speed (int speed)
-void turnLeftMotorBackward(int speed)
+void turnLeftMotorBackward(unsigned int speed)
 {
   if (speed > MAX_SPEED)
   {
@@ -78,13 +78,13 @@ void turnLeftMotorBackward(int speed)
 }
 
 // Stops the left motor
-void turnLeftMotorOff()
+void stopLeftMotor()
 {
   leftServo.detach();
 }
 
 // Turns right motor forward a specific speed (int speed)
-void turnRightMotorForward(int speed)
+void turnRightMotorForward(unsigned int speed)
 {
   if (speed > MAX_SPEED)
   {
@@ -103,7 +103,7 @@ void turnRightMotorForward(int speed)
 }
 
 // Turns right motor backward a specific speed (int speed)
-void turnRightMotorBackward(int speed)
+void turnRightMotorBackward(unsigned int speed)
 {
   if (speed > MAX_SPEED)
   {
@@ -122,7 +122,7 @@ void turnRightMotorBackward(int speed)
 }
 
 // Stops the right motor
-void turnRightMotorOff()
+void stopRightMotor()
 {
   rightServo.detach();
 }
@@ -154,29 +154,37 @@ int getRightLight()
 // Turns the green LED on
 void turnOnGreenLED()
 {
-  digitalWrite(LED_PIN_GREEN, ON);
+  digitalWrite(LED_PIN_GREEN, HIGH);
 }
 
 // Turns the green LED off
 void turnOffGreenLED()
 {
-  digitalWrite(LED_PIN_GREEN, OFF);
+  digitalWrite(LED_PIN_GREEN, LOW);
 }
 
 // Turns the red LED on
 void turnOnRedLED()
 {
-  digitalWrite(LED_PIN_RED, ON);
+  digitalWrite(LED_PIN_RED, HIGH);
 }
 
 // Turns the red LED off
 void turnOffRedLED()
 {
-  digitalWrite(LED_PIN_RED, OFF);
+  digitalWrite(LED_PIN_RED, LOW);
 }
 
 // Wrapper for tone function
 void playSound(int freq, int duration)
 {
   tone(SPEAKER_PIN, freq, duration);
+}
+
+// Stop the presses!
+void halt()
+{
+  stopLeftMotor();
+  stopRightMotor();
+  while(1);
 }

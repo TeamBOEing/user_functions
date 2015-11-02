@@ -39,22 +39,23 @@
 #define MAX_SPEED 200             // Fastest forward/backward speed allowed
 
 // User function prototypes
-void initialize();                // Sets up pin directions and Serial Monitor
-void turnLeftMotorForward(int);   // Turns left motor forward a specific speed (int speed)
-void turnLeftMotorBackward(int);  // Turns left motor backward a specific speed (int speed)
-void stopLeftMotor();             // Stops the left motor
-void turnRightMotorForward(int);  // Turns right motor forward a specific speed (int speed)
-void turnRightMotorBackward(int); // Turns right motor backward a specific speed (int speed)
-void stopRightMotor();            // Stops the right motor
-bool leftObstacle();              // True if obstacle detected on left IR
-bool rightObstacle();             // True if obstacle detected on right IR
-int getLeftLight();               // Wrapper for analogRead of left light value
-int getRightLight();              // Wrapper for analogRead of right light value
-void turnOnGreenLED();            // Turns the green LED on
-void turnOffGreenLED();           // Turns the green LED off
-void turnOnRedLED();              // Turns the red LED on
-void turnOffRedLED();             // Turns the red LED off
-void playSound(int, int);         // Wrapper for tone function (int freq, int duration)
+void initialize();                           // Sets up pin directions and Serial Monitor
+void turnLeftMotorForward(unsigned int);     // Turns left motor forward a specific speed (int speed)
+void turnLeftMotorBackward(unsigned int);    // Turns left motor backward a specific speed (int speed)
+void stopLeftMotor();                        // Stops the left motor
+void turnRightMotorForward(unsigned int);    // Turns right motor forward a specific speed (int speed)
+void turnRightMotorBackward(unsigned int);   // Turns right motor backward a specific speed (int speed)
+void stopRightMotor();                       // Stops the right motor
+bool leftObstacle();                         // True if obstacle detected on left IR
+bool rightObstacle();                        // True if obstacle detected on right IR
+int getLeftLight();                          // Wrapper for analogRead of left light value
+int getRightLight();                         // Wrapper for analogRead of right light value
+void turnOnGreenLED();                       // Turns the green LED on
+void turnOffGreenLED();                      // Turns the green LED off
+void turnOnRedLED();                         // Turns the red LED on
+void turnOffRedLED();                        // Turns the red LED off
+void playSound(int, int);                    // Wrapper for tone function (int freq, int duration)
+void halt();                                 // STOP THE PRESSES!
 
 
 #endif
