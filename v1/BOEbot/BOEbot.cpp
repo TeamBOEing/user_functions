@@ -1,12 +1,13 @@
 /*
  * BOEbot.cpp
  * Author: Corbin Murrow, Cody Crossley
- * Date: 28 October 2015
- * Version: 1.5
+ * Date: 03 November 2015
+ * Version: 1.6
  *
  * This file contains the library code for BOEbot funcitonality.
  *
  * ======= VERSION HISTORY =======
+ * Version 1.6: Updated initialize for IR, inverted {left/right}Obstacle return, LDR pins updated - CC - 03 November 2015
  * Version 1.5: Updated function names and functionality - CM - 28 October 2015
  * Version 1.4: Fixed some =/== errors in motors, added max speed var - CC - 26 October 2015
  * Version 1.3: Merged versions 1.1 and 1.2 together - CM - 26 October 2015
@@ -37,6 +38,10 @@ void initialize()
   // Set IR receivers as inputs
   pinMode(IR_RIGHT_RX, INPUT);
   pinMode(IR_LEFT_RX, INPUT);
+
+  // Continuously sends IR signal, allows for obstacle detection
+  delay(5);
+  tone(IR_TX, IR_SEND_FREQ);
 }
 
 // Turns left motor forward a specific speed (int speed)
@@ -127,16 +132,16 @@ void stopRightMotor()
   rightServo.detach();
 }
 
-// Returns value of left IR
+// Returns HIGH if left IR detects object
 bool leftObstacle()
 {
-  return digitalRead(IR_LEFT_RX);
+  return !digitalRead(IR_LEFT_RX);
 }
 
-// Returns value of right IR
+// Returns HIGH if right IR detects object
 bool rightObstacle()
 {
-  return digitalRead(IR_RIGHT_RX);
+  return !digitalRead(IR_RIGHT_RX);
 }
 
 // Wrapper for analogRead of left light value
@@ -176,7 +181,7 @@ void turnOffRedLED()
 }
 
 // Wrapper for tone function
-void playSound(int freq, int duration)
+void playSound(unsigned int freq, unsigned int duration)
 {
   tone(SPEAKER_PIN, freq, duration);
 }
