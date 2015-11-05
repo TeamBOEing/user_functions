@@ -39,9 +39,7 @@ void initialize()
   pinMode(IR_RIGHT_RX, INPUT);
   pinMode(IR_LEFT_RX, INPUT);
 
-  // Continuously sends IR signal, allows for obstacle detection
-  delay(5);
-  tone(IR_TX, IR_SEND_FREQ);
+  //tone(IR_TX, IR_SEND_FREQ);
 }
 
 // Turns left motor forward a specific speed (int speed)
@@ -104,6 +102,7 @@ void turnRightMotorForward(unsigned int speed)
   if (!rightServo.attached())
     rightServo.attach(MOTOR_RIGHT);
 
+  //noTone(IR_TX);
   rightServo.write(MOTOR_STOP_VALUE - speed);
 }
 
@@ -123,6 +122,7 @@ void turnRightMotorBackward(unsigned int speed)
   if (!rightServo.attached())
     rightServo.attach(MOTOR_RIGHT);
 
+  //noTone(IR_TX);
   rightServo.write(MOTOR_STOP_VALUE + speed);
 }
 
@@ -135,13 +135,35 @@ void stopRightMotor()
 // Returns HIGH if left IR detects object
 bool leftObstacle()
 {
-  return !digitalRead(IR_LEFT_RX);
+  bool obstacle = false;
+  int count = 0;
+  tone(IR_TX, IR_SEND_FREQ);
+
+  while (!obstacle && count++ < 25)
+  {
+    obstacle = !digitalRead(IR_LEFT_RX);
+  }
+
+  noTone(IR_TX);
+
+  return obstacle;
 }
 
 // Returns HIGH if right IR detects object
 bool rightObstacle()
 {
-  return !digitalRead(IR_RIGHT_RX);
+  bool obstacle = false;
+  int count = 0;
+  tone(IR_TX, IR_SEND_FREQ);
+
+  while (!obstacle && count++ < 25)
+  {
+    obstacle = !digitalRead(IR_RIGHT_RX);
+  }
+
+  noTone(IR_TX);
+
+  return obstacle;
 }
 
 // Wrapper for analogRead of left light value
