@@ -1,12 +1,13 @@
 /*
  * BOEbot.h
  * Author: Corbin Murrow, Cody Crossley
- * Date: 03 November 2015
- * Version: 1.6
+ * Date: 04 November 2015
+ * Version: 1.7
  *
- * This file contains the library code for BOEbot funcitonality.
+ * This file contains the library code for BOEbot functionality.
  *
  * ======= VERSION HISTORY =======
+ * Version 1.7: Changed IR to pulse tone instead of continuous sending - Cc & CM - 04 November 2015
  * Version 1.6: Updated initialize for IR, inverted {left/right}Obstacle return, LDR pins updated - CC - 03 November 2015
  * Version 1.5: Updated function names and functionality - CM - 28 October 2015
  * Version 1.4: Fixed some =/== errors in motors, added max speed var - CC - 26 October 2015
@@ -36,6 +37,7 @@
 // Constants
 #define BAUD 115200               // Speed which Serial monitor transmits
 #define IR_SEND_FREQ 38500        // Hz signal of IR LEDs
+#define IR_SEND_LOOPS 25          // Number of times IR is checked before exiting
 #define MOTOR_STOP_VALUE 1500     // The nominal stop value
 #define MAX_SPEED 200             // Fastest forward/backward speed allowed
 

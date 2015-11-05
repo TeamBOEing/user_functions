@@ -1,12 +1,13 @@
 /*
  * BOEbot.cpp
  * Author: Corbin Murrow, Cody Crossley
- * Date: 03 November 2015
- * Version: 1.6
+ * Date: 04 November 2015
+ * Version: 1.7
  *
- * This file contains the library code for BOEbot funcitonality.
+ * This file contains the library code for BOEbot functionality.
  *
  * ======= VERSION HISTORY =======
+ * Version 1.7: Changed IR to pulse tone instead of continuous sending - CC & CM - 04 November 2015
  * Version 1.6: Updated initialize for IR, inverted {left/right}Obstacle return, LDR pins updated - CC - 03 November 2015
  * Version 1.5: Updated function names and functionality - CM - 28 October 2015
  * Version 1.4: Fixed some =/== errors in motors, added max speed var - CC - 26 October 2015
@@ -16,7 +17,7 @@
  * Version 1.0: Created file - CC - 21 October 2015
  */
 
-#include "BOEbot.h"
+#include <BOEbot.h>
 #include <Servo.h>
 
 Servo leftServo;
@@ -38,8 +39,6 @@ void initialize()
   // Set IR receivers as inputs
   pinMode(IR_RIGHT_RX, INPUT);
   pinMode(IR_LEFT_RX, INPUT);
-
-  //tone(IR_TX, IR_SEND_FREQ);
 }
 
 // Turns left motor forward a specific speed (int speed)
@@ -102,7 +101,6 @@ void turnRightMotorForward(unsigned int speed)
   if (!rightServo.attached())
     rightServo.attach(MOTOR_RIGHT);
 
-  //noTone(IR_TX);
   rightServo.write(MOTOR_STOP_VALUE - speed);
 }
 
@@ -122,7 +120,6 @@ void turnRightMotorBackward(unsigned int speed)
   if (!rightServo.attached())
     rightServo.attach(MOTOR_RIGHT);
 
-  //noTone(IR_TX);
   rightServo.write(MOTOR_STOP_VALUE + speed);
 }
 
@@ -135,35 +132,31 @@ void stopRightMotor()
 // Returns HIGH if left IR detects object
 bool leftObstacle()
 {
-  bool obstacle = false;
-  int count = 0;
+  bool obstacleDetected = false;
   tone(IR_TX, IR_SEND_FREQ);
-
-  while (!obstacle && count++ < 25)
-  {
-    obstacle = !digitalRead(IR_LEFT_RX);
-  }
+  
+  // Makes multiple attempts at detecting an object (roughly 30ms)
+  for (int i = 0; !obstacleDetected && i < IR_SEND_LOOPS; i++)
+    obstacleDetected = !digitalRead(IR_LEFT_RX);
 
   noTone(IR_TX);
 
-  return obstacle;
+  return obstacleDetected;
 }
 
 // Returns HIGH if right IR detects object
 bool rightObstacle()
 {
-  bool obstacle = false;
-  int count = 0;
+  bool obstacleDetected = false;
   tone(IR_TX, IR_SEND_FREQ);
-
-  while (!obstacle && count++ < 25)
-  {
-    obstacle = !digitalRead(IR_RIGHT_RX);
-  }
+  
+  // Makes multiple attempts at detecting an object (roughly 30ms)
+  for (int i = 0; !obstacleDetected && i < IR_SEND_LOOPS; i++)
+    obstacleDetected = !digitalRead(IR_RIGHT_RX);
 
   noTone(IR_TX);
 
-  return obstacle;
+  return obstacleDetected;
 }
 
 // Wrapper for analogRead of left light value
