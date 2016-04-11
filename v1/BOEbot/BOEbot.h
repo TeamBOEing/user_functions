@@ -35,7 +35,7 @@
 #define LDR_RIGHT A3              // Photoresistor on right side of board
 
 // Constants
-#define BAUD 115200               // Speed which Serial monitor transmits
+#define BAUD 9600                 // Speed which Serial monitor transmits
 #define IR_SEND_FREQ 38500        // Hz signal of IR LEDs
 #define IR_SEND_LOOPS 25          // Number of times IR is checked before exiting
 #define MOTOR_STOP_VALUE 1500     // The nominal stop value
